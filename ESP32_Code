@@ -81,7 +81,7 @@ bool stm32_extended_erase() {
     return false;
   }
   
-  Serial.println("Stabilizing (3s)...");
+  Serial.println("Stabilizing ...");
   delay(3000);
   return true;
 }
@@ -148,7 +148,7 @@ bool download_firmware() {
 
   firmwareSize = http.getSize();
   if (firmwareSize <= 0 || firmwareSize > MAX_FIRMWARE_SIZE) {
-    Serial.printf("✗ Bad size: %d\n", firmwareSize);
+    Serial.printf("size bad: %d\n", firmwareSize);
     return false;
   }
 
@@ -197,7 +197,7 @@ bool flash_firmware() {
     }
     
     if (!success) {
-      Serial.printf("\n✗ Failed at 0x%08X\n", addr);
+      Serial.printf("\nFailed at 0x%08X\n", addr);
       return false;
     }
     
@@ -239,9 +239,9 @@ void setup() {
   
   if (flash_firmware()) {
     stm32_boot_app();
-    Serial.println("SUCCESS!");
+    Serial.println("Success!");
   } else {
-    Serial.println("FAILED!");
+    Serial.println("Failure!");
   }
   
   if (firmwareBuffer) free(firmwareBuffer);
